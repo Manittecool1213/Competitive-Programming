@@ -84,7 +84,7 @@ int main()
 
         for(int loop_counter = 0; loop_counter < N; loop_counter++)
         {
-            if(array1[N] > array2[N])
+            if(array1[loop_counter] > array2[loop_counter])
             {
                 second_condition_is_valid = false;
                 break;
@@ -111,40 +111,15 @@ int main()
                 }
             }
 
+            // Final condition checking and output:
             int number_of_remaining_elements = N - modal_frequency;
-
+            
             if(number_of_remaining_elements < modal_frequency - 1)
             {
                 cout << "NO" << endl;
             } else {
                 cout << "YES" << endl;
             }
-
-            // Alternate approach - did not use, but keeping in code until solution is verified.
-
-            // // Calculating number of modes:
-            // int number_of_modes = 0;
-            // for(const auto& key_value_pair: frequency_dictionary)
-            // {
-            //     if(key_value_pair.second == modal_frequency)
-            //     {
-            //         number_of_modes += 1;
-            //     }
-            // }
-
-            // Performing final stage of calculations:
-            // int cumulative_modal_frequency = number_of_modes * modal_frequency;
-            // int number_of_remaining_elements = N - cumulative_modal_frequency;
-
-            // if(number_of_remaining_elements < modal_frequency - 1)
-            // {
-            //     cout << "First condition failed." << endl;
-            //     cout << "Number of remaining elements: " << number_of_remaining_elements << endl;
-            //     cout << "Cumulative modal frequency: " << cumulative_modal_frequency << endl;
-            //     cout << "NO" << endl;
-            // } else {
-            //     cout << "YES" << endl;
-            // }
 
         } else {
             cout << "NO" << endl;
