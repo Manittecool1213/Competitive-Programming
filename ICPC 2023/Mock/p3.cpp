@@ -2,8 +2,13 @@
 using namespace std;
 
 /*
+Problem Name: LCM Pairs
+Source: ICPC India Preliminary 2023, Mock Round
+Link: https://codedrills.io/contests/icpc-india-preliminary-2023-mock-round/problems/lcm-pairs
+
 Current State:
 - The algorithm is theoretically correct, but not fast enough to pass all test cases.
+- Even after going throught the editorial, I was not able to understand the implemented solution.
 
 Implemented Solution:
 - For a given pair of numbers to be beautiful, two conditions need to be checked.
