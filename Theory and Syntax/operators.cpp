@@ -38,6 +38,18 @@ int main()
     cout << "Using postfix operator: " << prefix_postfix_example_int++ << endl;
     cout << "Value after operation has been performed: " << prefix_postfix_example_int << endl;
 
+    cout << endl;
+
+    // Logical Operators
+    /*
+    - Like C, boolean values true and false are represented using 1 and 0 respectively.
+    - The output of a boolean value will be 1 or 0 instead of true or false.
+    */
+    bool boolean_1 = true;
+    bool boolean_2 = false;
+    cout << "True and False evaluates to: " << (boolean_1 && boolean_2) << endl;
+    cout << "True or False evaluates to: " << (boolean_1 || boolean_2) << endl;
+
     return 0;
 }
 
