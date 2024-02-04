@@ -95,7 +95,7 @@ int main()
                 }
             }
 
-            int minimum_of_best_possibilities = *min(best_possibilities.begin(), best_possibilities.end());
+            int minimum_of_best_possibilities = *min_element(best_possibilities.begin(), best_possibilities.end());
 
             int best_possibility = minimum_of_best_possibilities;
             if (current_element >= previous_element && current_element < minimum_of_best_possibilities)
