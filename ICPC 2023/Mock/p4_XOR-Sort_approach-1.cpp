@@ -41,7 +41,7 @@ int main() {
     for(int loop_counter = size_of_array - 1; loop_counter >= 0; loop_counter--) {
         bool array_is_sorted = is_sorted(integer_array, integer_array + size_of_array);
 
-        if (array_is_sorted)
+        if(array_is_sorted)
         {
             break;
         }
