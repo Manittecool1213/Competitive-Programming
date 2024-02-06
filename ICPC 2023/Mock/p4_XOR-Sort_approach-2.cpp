@@ -1,37 +1,29 @@
 /*
 Possible issues:
 - Constraints
-
-Observations:
-- anything ^ 0 = itself
-- anything ^ anything = 0
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
+void process_testcase();
+
 int main()
 {
-    // int number_of_test_cases;
-    // cin >> number_of_test_cases;
+    int number_of_test_cases;
+    cin >> number_of_test_cases;
 
-    // while(number_of_test_cases) {
-    //     // Input:
-    //     int size_of_array;
-    //     cin >> size_of_array;
+    while (number_of_test_cases)
+    {
+        process_testcase();
+        number_of_test_cases--;
+    }
 
-    //     int integer_array[size_of_array] = {};
-    //     for(int loop_counter = 0; loop_counter < size_of_array; loop_counter++) {
-    //         cin >> integer_array[loop_counter];
-    //     }
+    return 0;
+}
 
-    //     // Processing:
-
-    //     number_of_test_cases--;
-    // }
-
-    // Logic:
-
+void process_testcase()
+{
     // Input:
     int size_of_array;
     cin >> size_of_array;
@@ -46,36 +38,48 @@ int main()
     // Processing:
     if (is_sorted(array, array + size_of_array))
     {
-        cout << "Array is sorted." << endl;
+        // If array is already sorted, no changes need to be made.
+        cout << 0 << endl;
     }
     else
     {
+        // Variables to store values which will eventually be outputted:
+        int operation_counter = 0;
+        map<int, int> operation_map;
+
         // Dealing with first element:
         int best_possibility = array[0];
+        int index_corresponding_to_best_possibility;
 
         for (int loop_counter = 1; loop_counter < size_of_array; loop_counter++)
         {
             if ((array[loop_counter] ^ array[0]) < best_possibility)
             {
                 best_possibility = (array[loop_counter] ^ array[0]);
+                index_corresponding_to_best_possibility = loop_counter;
             }
         }
 
-        array[0] = best_possibility;
+        if (best_possibility < array[0])
+        {
+            array[0] = best_possibility;
+            operation_counter++;
+            operation_map[1] = index_corresponding_to_best_possibility + 1;
+        }
 
         // Dealing with remaining elements:
         for (int loop_counter = 1; loop_counter < size_of_array; loop_counter++)
         {
             if (is_sorted(array, array + size_of_array))
             {
-                cout << "Array is sorted." << endl;
                 break;
             }
 
             int current_element = array[loop_counter];
             int previous_element = array[loop_counter - 1];
 
-            vector<int> best_possibilities;
+            best_possibility = -1;
+            int best_possibility_has_changed = 0;
 
             for (int i = 0; i < size_of_array; i++)
             {
@@ -83,54 +87,66 @@ int main()
                 {
                     continue;
                 }
+
                 int potential_value = array[i] ^ current_element;
 
-                if (potential_value >= previous_element)
+                if (current_element < previous_element)
                 {
-                    best_possibilities.push_back(potential_value);
+                    if (best_possibility_has_changed)
+                    {
+                        if ((potential_value >= previous_element) && (potential_value < best_possibility))
+                        {
+                            best_possibility = potential_value;
+                            best_possibility_has_changed = 1;
+                            index_corresponding_to_best_possibility = i;
+                        }
+                    }
+                    else
+                    {
+                        if (potential_value >= previous_element)
+                        {
+                            best_possibility = potential_value;
+                            best_possibility_has_changed = 1;
+                            index_corresponding_to_best_possibility = i;
+                        }
+                    }
+                }
+                else
+                {
+                    if (best_possibility_has_changed)
+                    {
+                        if ((potential_value < current_element) && (potential_value >= previous_element) && (potential_value < best_possibility))
+                        {
+                            best_possibility = potential_value;
+                            best_possibility_has_changed = 1;
+                            index_corresponding_to_best_possibility = i;
+                        }
+                    }
+                    else
+                    {
+                        if ((potential_value < current_element) && (potential_value >= previous_element))
+                        {
+                            best_possibility = potential_value;
+                            best_possibility_has_changed = 1;
+                            index_corresponding_to_best_possibility = i;
+                        }
+                    }
                 }
             }
 
-            int minimum_of_best_possibilities = *min_element(best_possibilities.begin(), best_possibilities.end());
-
-            int best_possibility = minimum_of_best_possibilities;
-            if (current_element >= previous_element && current_element < minimum_of_best_possibilities)
+            if (best_possibility != -1)
             {
-                best_possibility = current_element;
+                array[loop_counter] = best_possibility;
+                operation_counter++;
+                operation_map[loop_counter + 1] = index_corresponding_to_best_possibility + 1;
             }
+        }
 
-            int current_possibility;
+        cout << operation_counter << endl;
 
-            // cout << "Current element: " << current_element << endl;
-            // cout << "Previous element: " << previous_element << endl;
-
-            // for (int depth_2_loop_counter = 1; depth_2_loop_counter < size_of_array && depth_2_loop_counter != loop_counter; depth_2_loop_counter++)
-            // {
-            //     current_possibility = current_element ^ array[depth_2_loop_counter];
-
-            //     if (current_possibility < best_possibility && current_possibility >= previous_element)
-            //     {
-            //         best_possibility = current_possibility;
-            //     }
-            // }
-
-            // cout << "Best possibility: " << best_possibility << endl;
-
-            array[loop_counter] = best_possibility;
-
-            // cout << "Current array" << endl;
-            // for (int i = 0; i < size_of_array; i++)
-            // {
-            //     cout << array[i] << endl;
-            // }
-            // cout << endl;
+        for (const auto &key_value_pair : operation_map)
+        {
+            cout << key_value_pair.first << " " << key_value_pair.second << endl;
         }
     }
-
-    for (int i = 0; i < size_of_array; i++)
-    {
-        cout << array[i] << endl;
-    }
-
-    return 0;
 }

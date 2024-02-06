@@ -113,7 +113,6 @@ int main()
 
             // Final condition checking and output:
             int number_of_remaining_elements = N - modal_frequency;
-            
             if(number_of_remaining_elements < modal_frequency - 1)
             {
                 cout << "NO" << endl;
