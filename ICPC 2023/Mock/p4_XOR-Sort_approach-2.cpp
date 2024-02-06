@@ -44,7 +44,6 @@ int main()
     }
 
     // Processing:
-
     if (is_sorted(array, array + size_of_array))
     {
         cout << "Array is sorted." << endl;
@@ -56,20 +55,13 @@ int main()
 
         for (int loop_counter = 1; loop_counter < size_of_array; loop_counter++)
         {
-            if (array[loop_counter] < best_possibility)
+            if ((array[loop_counter] ^ array[0]) < best_possibility)
             {
-                best_possibility = array[loop_counter];
+                best_possibility = (array[loop_counter] ^ array[0]);
             }
         }
 
         array[0] = best_possibility;
-
-        // cout << "Current array" << endl;
-        // for (int i = 0; i < size_of_array; i++)
-        // {
-        //     cout << array[i] << endl;
-        // }
-        // cout << endl;
 
         // Dealing with remaining elements:
         for (int loop_counter = 1; loop_counter < size_of_array; loop_counter++)
@@ -85,8 +77,12 @@ int main()
 
             vector<int> best_possibilities;
 
-            for (int i = 0; i < size_of_array && i != loop_counter; i++)
+            for (int i = 0; i < size_of_array; i++)
             {
+                if (i == loop_counter)
+                {
+                    continue;
+                }
                 int potential_value = array[i] ^ current_element;
 
                 if (potential_value >= previous_element)
