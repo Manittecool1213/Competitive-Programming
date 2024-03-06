@@ -1,3 +1,9 @@
+/*
+- Problem Name: Cut Ribbon
+- Link: https://codeforces.com/problemset/problem/189/A
+- Rating: 1300
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
